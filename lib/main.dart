@@ -26,12 +26,10 @@ class MyApp extends StatelessWidget {
           )
         ),
         appBarTheme: AppBarTheme(
-          textTheme: ThemeData.light().textTheme.copyWith(
-            headline6: TextStyle(
-              fontFamily: 'OpenSans',
-              fontSize: 20,
-              fontWeight: FontWeight.bold
-            )
+            titleTextStyle: TextStyle(
+            fontFamily: 'OpenSans',
+            fontSize: 20,
+            fontWeight: FontWeight.bold
           )
         )
 
@@ -50,8 +48,7 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
  
   final List<Transaction> useTransaction = [
-    Transaction(id: "t1", title: "shoe", amount: 30.0, date: DateTime.now()),
-    Transaction(id: "t2", title: "shirt", amount: 20.0, date: DateTime.now())
+    
   ];
 
   void _addNewTransaction(String txTitle, double txAmount){
@@ -80,7 +77,10 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: Text("Expense planner"),
+        title: Text("Expense planner",
+        
+        ),
+
         actions: [
           IconButton(
             onPressed: ()=>showInputDataWidget(context),

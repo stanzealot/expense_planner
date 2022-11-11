@@ -13,7 +13,19 @@ class TransactionList extends StatelessWidget {
    
     return Container(
       height: 300,
-      child:ListView.builder(
+      child:transaction.isEmpty? Column(
+        children: [
+          Text('Transactions yet to be add',style: Theme.of(context).textTheme.headline6,),
+          SizedBox(height: 10,),
+          Container(
+            height: 200,
+            
+            child: Image.asset('lib/assets/images/waiting.png',fit: BoxFit.cover,),
+            
+            )
+        ],
+      ) 
+      :ListView.builder(
         itemBuilder:(ctr,index){
           return Card(
                 child: Row(children: [
@@ -37,7 +49,7 @@ class TransactionList extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                    Text(transaction[index].title,style: TextStyle(fontWeight:FontWeight.bold,fontSize:20),),
+                    Text(transaction[index].title,style: Theme.of(context).textTheme.headline6),
                     Text(DateFormat.yMMMd().format(transaction[index].date),style: TextStyle(color:Colors.grey),)
                   ],)
                 ],)
