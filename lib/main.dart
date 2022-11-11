@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
-import './widgets/user_transaction.dart';
+import './models/transaction.dart';
 void main() => runApp(MyApp());
 
 
@@ -27,12 +27,32 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  late String inputTitle;
+ 
+  final List<Transaction> useTransaction = [
+    Transaction(id: "t1", title: "shoe", amount: 30.0, date: DateTime.now()),
+    Transaction(id: "t2", title: "shirt", amount: 20.0, date: DateTime.now())
+  ];
 
-  late String inputAmount;
-
-  void showInputData(){
+  void _addNewTransaction(String txTitle, double txAmount){
+     final newTrn = Transaction(
+      id: DateTime.now().toString(), 
+      title: txTitle, 
+      amount: txAmount, 
+      date: DateTime.now()
+      );
+      setState(() {
+        useTransaction.add(newTrn);
+      });
     
+  }
+  void showInputDataWidget(BuildContext ctx){
+    showModalBottomSheet(context: ctx, builder:(bCtx){
+      return GestureDetector(
+        onTap: (){},
+        behavior: HitTestBehavior.opaque,
+        child: NewTransaction(_addNewTransaction)
+      );
+    },);
   }
 
   @override
@@ -42,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
         title: Text("Expense planner"),
         actions: [
           IconButton(
-            onPressed: (){},
+            onPressed: ()=>showInputDataWidget(context),
             icon: Icon(Icons.add)
             )
         ],
@@ -61,9 +81,9 @@ class _MyHomePageState extends State<MyHomePage> {
             elevation: 5,
             ),
           ),
-          UserTransactionState()
+          
           // NewTransaction(),
-          // TransactionList()
+           TransactionList(useTransaction)
         
       ]
         
@@ -71,7 +91,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: (){},
+        onPressed: ()=>showInputDataWidget(context),
         child: Icon(Icons.add)
         ),
     );
