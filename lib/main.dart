@@ -1,76 +1,80 @@
-// ignore_for_file: prefer_const_constructors
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, sort_child_properties_last, sized_box_for_whitespace, prefer_interpolation_to_compose_strings, avoid_print
 
 import 'package:flutter/material.dart';
-
+import 'package:intl/intl.dart';
+import './widgets/transaction_list.dart';
+import './widgets/new_transaction.dart';
+import './widgets/user_transaction.dart';
 void main() => runApp(MyApp());
 
 
 class MyApp extends StatelessWidget {
-  
 
-  
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Demo',
-      theme: ThemeData(
-       
-        primarySwatch: Colors.blue,
-      ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      
+      home:  MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-
-  final String title;
 
   @override
   State<MyHomePage> createState() => _MyHomePageState();
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
+  late String inputTitle;
 
-  void _incrementCounter() {
-    setState(() {
-      
-      _counter++;
-    });
+  late String inputAmount;
+
+  void showInputData(){
+    
   }
 
   @override
-  Widget build(BuildContext context) {
-    
+  Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        
-        title: Text(widget.title),
+        title: Text("Expense planner"),
+        actions: [
+          IconButton(
+            onPressed: (){},
+            icon: Icon(Icons.add)
+            )
+        ],
       ),
-      body: Center(
-        
+      body: SingleChildScrollView(
         child: Column(
+        //mainAxisAlignment: MainAxisAlignment.spaceAround,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+        Container(
+          width: double.infinity,
           
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+          child:Card(
+            color: Colors.blueGrey,
+            child: Text("Chart"),
+            elevation: 5,
             ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headline4,
-            ),
-          ],
-        ),
+          ),
+          UserTransactionState()
+          // NewTransaction(),
+          // TransactionList()
+        
+      ]
+        
       ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
+        onPressed: (){},
+        child: Icon(Icons.add)
+        ),
     );
   }
 }
+
