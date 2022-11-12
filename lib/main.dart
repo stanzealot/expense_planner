@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
 import './models/transaction.dart';
-import './widgets/chart.dart';
+import 'widgets/chart.dart'; 
 void main() => runApp(MyApp());
 
 
@@ -24,7 +24,11 @@ class MyApp extends StatelessWidget {
             fontFamily: 'OpenSans',
             fontWeight: FontWeight.bold,
             fontSize: 18,
+          ),
+          button: TextStyle(
+            color: Colors.white
           )
+
         ),
         appBarTheme: AppBarTheme(
             titleTextStyle: TextStyle(
