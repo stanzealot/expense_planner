@@ -1,10 +1,11 @@
-// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, sort_child_properties_last, sized_box_for_whitespace, prefer_interpolation_to_compose_strings, avoid_print
+// ignore_for_file: prefer_const_constructors, prefer_const_literals_to_create_immutables, use_key_in_widget_constructors, sort_child_properties_last, sized_box_for_whitespace, prefer_interpolation_to_compose_strings, avoid_print, unused_element
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
 import './models/transaction.dart';
+import './widgets/chart.dart';
 void main() => runApp(MyApp());
 
 
@@ -47,10 +48,14 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
  
-  final List<Transaction> useTransaction = [
-    
-  ];
+  final List<Transaction> useTransaction = [];
 
+  List<Transaction> get _recentTransaction {
+    return useTransaction.where((trans) {
+      return trans.date.isAfter(
+        DateTime.now().subtract(Duration(days: 7)));
+    }).toList();
+  }
   void _addNewTransaction(String txTitle, double txAmount){
      final newTrn = Transaction(
       id: DateTime.now().toString(), 
@@ -93,18 +98,10 @@ class _MyHomePageState extends State<MyHomePage> {
         //mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-        Container(
-          width: double.infinity,
-          
-          child:Card(
-            color: Colors.blueGrey,
-            child: Text("Chart"),
-            elevation: 5,
-            ),
-          ),
-          
+            //chart
+          Chart(_recentTransaction),
           // NewTransaction(),
-           TransactionList(useTransaction)
+          TransactionList(useTransaction)
         
       ]
         
