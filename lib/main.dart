@@ -68,6 +68,13 @@ class _MyHomePageState extends State<MyHomePage> {
       });
     
   }
+
+  void _removeTransaction(String id){
+    setState(() {
+      useTransaction.removeWhere((element) => element.id == id);
+    });
+    
+  }
   void showInputDataWidget(BuildContext ctx){
     showModalBottomSheet(context: ctx, builder:(bCtx){
       return GestureDetector(
@@ -101,7 +108,7 @@ class _MyHomePageState extends State<MyHomePage> {
             //chart
           Chart(_recentTransaction),
           // NewTransaction(),
-          TransactionList(useTransaction)
+          TransactionList(useTransaction,_removeTransaction)
         
       ]
         

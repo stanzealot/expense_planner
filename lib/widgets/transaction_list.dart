@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -5,8 +7,8 @@ import '../models/transaction.dart';
 
 class TransactionList extends StatelessWidget {
   final List<Transaction> transactions;
-
-  TransactionList(this.transactions);
+  Function deletTx;
+  TransactionList(this.transactions,this.deletTx);
 
   @override
   Widget build(BuildContext context) {
@@ -55,6 +57,12 @@ class TransactionList extends StatelessWidget {
                     subtitle: Text(
                       DateFormat.yMMMd().format(transactions[index].date),
                     ),
+                    trailing:  IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: ()=> transactions.length>0 ? deletTx(transactions[index].id):'',
+                      color: Theme.of(context).errorColor,
+                       ),
+                       
                   ),
                 );
               },
