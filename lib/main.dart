@@ -2,12 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:flutter/services.dart';
 import './widgets/transaction_list.dart';
 import './widgets/new_transaction.dart';
 import './models/transaction.dart';
 import './widgets/chart.dart';
-void main() => runApp(MyApp());
-
+void main(){
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
 
@@ -50,6 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
  
   final List<Transaction> useTransaction = [];
 
+  bool _showChart = false;
   List<Transaction> get _recentTransaction {
     return useTransaction.where((trans) {
       return trans.date.isAfter(
@@ -87,6 +90,7 @@ class _MyHomePageState extends State<MyHomePage> {
  
   @override
   Widget build(BuildContext context){
+    final isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
     final appBar = AppBar(
         title: Text("Expense planner",
         
@@ -99,6 +103,11 @@ class _MyHomePageState extends State<MyHomePage> {
             )
         ],
       );
+    final transactionList = Container(
+            height: (MediaQuery.of(context).size.height-appBar.preferredSize.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top)*0.7,
+            child: TransactionList(useTransaction,_removeTransaction)
+            );
+        
     return Scaffold(
       appBar: appBar,
       body: SingleChildScrollView(
@@ -106,17 +115,34 @@ class _MyHomePageState extends State<MyHomePage> {
         //mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-            //chart
-          Container(
+          if(isLandScape) Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text('Show Chart'),
+              Switch(value: _showChart, onChanged: (val){
+                setState(() {
+                  _showChart = val;
+                });
+                
+              })
+            ],
+          ),
+          //chart portrait
+          if(!isLandScape)  Container(
             height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top)*0.3,
             child: Chart(_recentTransaction)
             ),
-          // NewTransaction(),
+            //transactionList Portrait
+          if(!isLandScape) transactionList,
+
+          if(isLandScape) _showChart ?
+            //chart
           Container(
-            height: (MediaQuery.of(context).size.height-appBar.preferredSize.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top)*0.7,
-            child: TransactionList(useTransaction,_removeTransaction)
-            )
-        
+            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top)*0.7,
+            child: Chart(_recentTransaction)
+            ) :
+          // NewTransaction(),
+          transactionList
       ]
         
       ),
