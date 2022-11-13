@@ -90,7 +90,8 @@ class _MyHomePageState extends State<MyHomePage> {
  
   @override
   Widget build(BuildContext context){
-    final isLandScape = MediaQuery.of(context).orientation == Orientation.landscape;
+    final mediaQuery = MediaQuery.of(context);
+    final isLandScape = mediaQuery.orientation == Orientation.landscape;
     final appBar = AppBar(
         title: Text("Expense planner",
         
@@ -104,7 +105,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       );
     final transactionList = Container(
-            height: (MediaQuery.of(context).size.height-appBar.preferredSize.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top)*0.7,
+            height: (mediaQuery.size.height-appBar.preferredSize.height - appBar.preferredSize.height - mediaQuery.padding.top)*0.7,
             child: TransactionList(useTransaction,_removeTransaction)
             );
         
@@ -129,7 +130,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           //chart portrait
           if(!isLandScape)  Container(
-            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top)*0.3,
+            height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top)*0.3,
             child: Chart(_recentTransaction)
             ),
             //transactionList Portrait
@@ -138,7 +139,7 @@ class _MyHomePageState extends State<MyHomePage> {
           if(isLandScape) _showChart ?
             //chart
           Container(
-            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top)*0.7,
+            height: (mediaQuery.size.height - appBar.preferredSize.height - mediaQuery.padding.top)*0.7,
             child: Chart(_recentTransaction)
             ) :
           // NewTransaction(),
