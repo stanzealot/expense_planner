@@ -84,11 +84,10 @@ class _MyHomePageState extends State<MyHomePage> {
       );
     },);
   }
-
+ 
   @override
   Widget build(BuildContext context){
-    return Scaffold(
-      appBar: AppBar(
+    final appBar = AppBar(
         title: Text("Expense planner",
         
         ),
@@ -99,16 +98,24 @@ class _MyHomePageState extends State<MyHomePage> {
             icon: Icon(Icons.add)
             )
         ],
-      ),
+      );
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
         //mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
             //chart
-          Chart(_recentTransaction),
+          Container(
+            height: (MediaQuery.of(context).size.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top)*0.4,
+            child: Chart(_recentTransaction)
+            ),
           // NewTransaction(),
-          TransactionList(useTransaction,_removeTransaction)
+          Container(
+            height: (MediaQuery.of(context).size.height-appBar.preferredSize.height - appBar.preferredSize.height - MediaQuery.of(context).padding.top)*0.6,
+            child: TransactionList(useTransaction,_removeTransaction)
+            )
         
       ]
         

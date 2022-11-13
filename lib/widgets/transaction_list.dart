@@ -1,4 +1,4 @@
-// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, use_key_in_widget_constructors, prefer_const_constructors_in_immutables
+// ignore_for_file: prefer_const_constructors, sized_box_for_whitespace, use_key_in_widget_constructors, prefer_const_constructors_in_immutables, must_be_immutable
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
@@ -59,7 +59,7 @@ class TransactionList extends StatelessWidget {
                     ),
                     trailing:  IconButton(
                       icon: Icon(Icons.delete),
-                      onPressed: ()=> transactions.length>0 ? deletTx(transactions[index].id):'',
+                      onPressed: ()=> transactions.isNotEmpty ? deletTx(transactions[index].id):'',
                       color: Theme.of(context).errorColor,
                        ),
                        
