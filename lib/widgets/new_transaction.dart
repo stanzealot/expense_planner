@@ -1,5 +1,10 @@
+// ignore_for_file: prefer_const_constructors
+
+import 'dart:io';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import './adaptive_flat_button.dart';
 
 class NewTransaction extends StatefulWidget {
   
@@ -61,6 +66,7 @@ class _NewTransactionState extends State<NewTransaction> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
+
                     TextField(
                       decoration: const InputDecoration(labelText: 'Title'),
                       controller: titleController,
@@ -83,18 +89,7 @@ class _NewTransactionState extends State<NewTransaction> {
                                     : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}',
                               ),
                             ),
-                            TextButton(
-                              style: TextButton.styleFrom(
-                                primary: Theme.of(context).primaryColor
-                              ),
-                              child: Text(
-                                'Choose Date',
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                ),
-                              ),
-                              onPressed: _presentDatePicker,
-                            ),
+                           AdaptiveFlatButton('Choose Date', _presentDatePicker)
                           ],
                               ),
                       ),
